@@ -1,7 +1,7 @@
 <?php
+
 namespace Alura\DesignPattern\Descontos;
 
-use Alura\DesignPattern\Desconto;
 use Alura\DesignPattern\Orcamento;
 
 class SemDesconto extends Desconto
@@ -11,10 +11,8 @@ class SemDesconto extends Desconto
         parent::__construct(null);
     }
 
-    public function calculaDesconto(Orcamento $orcamento):float
+    public function calculaDesconto(Orcamento $orcamento): float
     {
         return 0;
     }
-
 }
-

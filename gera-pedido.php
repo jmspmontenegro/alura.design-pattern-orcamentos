@@ -1,23 +1,16 @@
 <?php
+
 require_once 'vendor/autoload.php';
 
-use Alura\DesignPattern\AcoesAoGerarPedido\EnviarPedidoPorEmail;
-use Alura\DesignPattern\AcoesAoGerarPedido\GerarLog;
-use Alura\DesignPattern\AcoesAoGerarPedido\GravarPedidoNoBanco;
-use Alura\DesignPattern\GerarPedido;
-use Alura\DesignPattern\GerarPedidoHandler;
-use Alura\DesignPattern\Orcamento;
-use Alura\DesignPattern\Pedido;
+use Alura\DesignPattern\{GerarPedido, GerarPedidoHandler, Orcamento, Pedido};
 
 $valorOrcamento = $argv[1];
-$numeroItens = $argv[2];
+$numeroDeItens = $argv[2];
 $nomeCliente = $argv[3];
 
-$gerarPedido = new GerarPedido($valorOrcamento, $numeroItens, $nomeCliente);
+$gerarPedido = new GerarPedido($valorOrcamento, $numeroDeItens, $nomeCliente);
 $gerarPedidoHandler = new GerarPedidoHandler();
-$gerarPedidoHandler->adicionarAcaoAoGerarPedido(new EnviarPedidoPorEmail());
-$gerarPedidoHandler->adicionarAcaoAoGerarPedido(new GerarLog());
-$gerarPedidoHandler->adicionarAcaoAoGerarPedido(new GravarPedidoNoBanco());
+$gerarPedidoHandler->adicionarAcaoAoGerarPedido(new \Alura\DesignPattern\AcoesAoGerarPedido\CriarPedidoNoBanco());
+$gerarPedidoHandler->adicionarAcaoAoGerarPedido(new \Alura\DesignPattern\AcoesAoGerarPedido\EnviarPedidoPorEmail());
+$gerarPedidoHandler->adicionarAcaoAoGerarPedido(new \Alura\DesignPattern\AcoesAoGerarPedido\LogGerarPedido());
 $gerarPedidoHandler->execute($gerarPedido);
-
-
